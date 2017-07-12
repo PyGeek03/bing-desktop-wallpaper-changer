@@ -126,7 +126,12 @@ def change_background_cinnamon(filename):
     set_gsetting('org.cinnamon.desktop.background', 'picture-uri',
         get_file_uri(filename))
 
-
+def get_current_background_uri():
+    if os.environ.get('DESKTOP_SESSION') == 'cinnamon':
+        current_background_uri = get_current_background_cinnamon_uri()
+    else:
+        current_background_uri = get_current_background_gnome_uri()
+    return current_background_uri
 
 def get_current_background_gnome_uri():
     gsettings = Gio.Settings.new('org.gnome.desktop.background')
